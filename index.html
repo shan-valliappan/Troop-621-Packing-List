@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Troop 621 Master Packing List</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-<script>
+    <script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -55,6 +54,8 @@
                 color: #111827 !important;
                 font-size: 11px !important;
                 line-height: 1.3 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
             .no-print {
                 display: none !important;
@@ -111,27 +112,16 @@
             .print-item-border:last-child {
                 border-bottom: none !important;
             }
-            /* Compress Rules box on print */
-            .print-rules-box {
-                background-color: #fffbeb !important;
-                border: 1.5px solid #f59e0b !important;
-                border-radius: 8px !important;
-                padding: 10px !important;
-                margin-bottom: 10px !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-        }    </style>
+        }    
+    </style>
 </head>
 <body class="bg-stone-100 text-stone-800 min-h-screen font-sans antialiased">
 
-    <!-- Print Header (Hidden on Web Screen) -->
     <div class="hidden print:block mb-4 border-b-2 border-scout-800 pb-3 text-center">
         <h1 class="text-3xl font-bold text-scout-900 tracking-tight">Troop 621 Packing List</h1>
         <p class="text-md font-semibold text-gold-700 italic">"Be Prepared." — Outdoor Camping & Summer Camp Gear Guide</p>
     </div>
 
-    <!-- Web Header -->
     <header class="no-print bg-scout-800 text-white shadow-lg relative overflow-hidden">
         <div class="absolute inset-0 bg-[radial-gradient(#15803d_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
         <div class="max-w-6xl mx-auto px-4 py-8 relative z-10">
@@ -147,7 +137,7 @@
                 <div class="flex gap-3">
                     <button onclick="window.print()" class="bg-white hover:bg-stone-100 text-scout-800 font-bold px-5 py-3 rounded-xl shadow-md flex items-center gap-2 transition duration-200 transform hover:-translate-y-0.5">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                        Print List
+                        Print / Save PDF
                     </button>
                     <button onclick="resetChecklist()" class="bg-scout-700 hover:bg-scout-600 text-white border border-scout-600 font-semibold px-4 py-3 rounded-xl transition duration-200">
                         Reset Status
@@ -159,7 +149,6 @@
 
     <main class="max-w-6xl mx-auto px-4 py-8">
         
-        <!-- Live Progress Dashboard (Sticky on Desktop, Hidden on Print) -->
         <div class="no-print bg-white rounded-2xl shadow-md p-6 mb-8 border border-stone-200 sticky top-4 z-40">
             <div class="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4">
                 <div class="flex-1">
@@ -193,13 +182,12 @@
             </div>
         </div>
 
-        <!-- ⚠️ CRITICAL RULES BLOCK -->
-        <section class="print-rules-box bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-2xl p-6 md:p-8 border-2 border-amber-500/30 mb-8 shadow-sm">            <h2 class="text-xl md:text-2xl font-bold text-amber-900 flex items-center gap-3">
+        <section class="print:hidden bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-2xl p-6 md:p-8 border-2 border-amber-500/30 mb-8 shadow-sm">
+            <h2 class="text-xl md:text-2xl font-bold text-amber-900 flex items-center gap-3">
                 <span class="flex h-8 w-8 items-center justify-center rounded-full bg-amber-500 text-white text-lg font-bold">⚠️</span>
                 CRITICAL TRAVEL & CAMP RULES
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-                <!-- One-Trip Rule -->
                 <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm flex gap-3">
                     <span class="text-2xl shrink-0">🎒</span>
                     <div>
@@ -207,7 +195,6 @@
                         <p class="text-xs text-amber-900/80 mt-1">Carry all gear yourself in one trip. Expect a 1-2 mile hike-in. Everything must fit inside or attach to your <strong>65-70L pack</strong>.</p>
                     </div>
                 </div>
-                <!-- Uniform on Departure -->
                 <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm flex gap-3">
                     <span class="text-2xl shrink-0">👔</span>
                     <div>
@@ -215,7 +202,6 @@
                         <p class="text-xs text-amber-900/80 mt-1">Wear full Class "A" Scout Uniform (shirt, patches, pants, slide, neckerchief, boots). Wear Class "B" underneath to switch easily.</p>
                     </div>
                 </div>
-                <!-- No Cell Phones -->
                 <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm flex gap-3">
                     <span class="text-2xl shrink-0">📵</span>
                     <div>
@@ -223,7 +209,6 @@
                         <p class="text-xs text-amber-900/80 mt-1">Virtually zero cell coverage inside the campground. Leave all cellular devices safely at home.</p>
                     </div>
                 </div>
-                <!-- Strict Footwear Rule -->
                 <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm flex gap-3">
                     <span class="text-2xl shrink-0">🥾</span>
                     <div>
@@ -231,7 +216,6 @@
                         <p class="text-xs text-amber-900/80 mt-1">No open-toed shoes or slip-ons at camp. Crocs are strictly restricted to the waterfront or shower house only.</p>
                     </div>
                 </div>
-                <!-- No Cotton -->
                 <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm flex gap-3 relative overflow-hidden">
                     <div class="absolute top-0 right-0 bg-red-500 text-white text-[9px] font-black px-2 py-0.5 rounded-bl-lg uppercase">Crucial</div>
                     <span class="text-2xl shrink-0">❌</span>
@@ -240,7 +224,6 @@
                         <p class="text-xs text-red-950/80 mt-1">Cotton absorbs moisture and dries extremely slowly. Use synthetics, polyester, or merino wool for socks/base layers.</p>
                     </div>
                 </div>
-                <!-- Label Everything -->
                 <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm flex gap-3">
                     <span class="text-2xl shrink-0">🏷️</span>
                     <div>
@@ -251,20 +234,18 @@
             </div>
         </section>
 
-        <!-- Packing Sections Container -->
         <div class="print-grid grid grid-cols-1 md:grid-cols-2 gap-8" id="packing-sections">
             
-            <!-- SECTION 1: Paperwork -->
-            <section class="bg-white rounded-2xl shadow-md border border-stone-200 overflow-hidden flex flex-col justify-between" data-section="paperwork">
+            <section class="bg-white rounded-2xl shadow-md border border-stone-200 overflow-hidden flex flex-col justify-between print-avoid-break" data-section="paperwork">
                 <div>
-                    <div class="bg-scout-800 text-white px-6 py-4 flex items-center justify-between">
+                    <div class="bg-scout-800 text-white px-6 py-4 flex items-center justify-between print-section-header">
                         <h3 class="text-lg font-bold tracking-tight flex items-center gap-2">
                             <span>📋</span> 1. Administrative & Paperwork
                         </h3>
-                        <span class="text-xs bg-scout-700 text-scout-100 font-medium px-2 py-0.5 rounded-full">Pre-Camp</span>
+                        <span class="text-xs bg-scout-700 text-scout-100 font-medium px-2 py-0.5 rounded-full no-print">Pre-Camp</span>
                     </div>
                     <div class="p-6 divide-y divide-stone-100">
-                        <div class="checklist-item py-3 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-1-1')">
+                        <div class="checklist-item print-item-border py-3 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-1-1')">
                             <input type="checkbox" id="item-1-1" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -272,7 +253,7 @@
                                 <p class="text-xs text-stone-500 mt-0.5">Carry two (2) physical printed copies in your pack. (Required for both Scouts and Adults).</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-3 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-1-2')">
+                        <div class="checklist-item print-item-border py-3 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-1-2')">
                             <input type="checkbox" id="item-1-2" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -280,7 +261,7 @@
                                 <p class="text-xs text-stone-500 mt-0.5">Carry four (4) physical printed copies inside your backpack.</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-3 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-1-3')">
+                        <div class="checklist-item print-item-border py-3 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-1-3')">
                             <input type="checkbox" id="item-1-3" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -288,7 +269,7 @@
                                 <p class="text-xs text-stone-500 mt-0.5">Ensure your swim test is fully completed, logged, and registered before leaving.</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-3 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-1-4')">
+                        <div class="checklist-item print-item-border py-3 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-1-4')">
                             <input type="checkbox" id="item-1-4" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -300,17 +281,16 @@
                 </div>
             </section>
 
-            <!-- SECTION 2: The Ten Essentials -->
-            <section class="bg-white rounded-2xl shadow-md border border-stone-200 overflow-hidden flex flex-col justify-between" data-section="essentials">
+            <section class="bg-white rounded-2xl shadow-md border border-stone-200 overflow-hidden flex flex-col justify-between print-avoid-break" data-section="essentials">
                 <div>
-                    <div class="bg-scout-800 text-white px-6 py-4 flex items-center justify-between">
+                    <div class="bg-scout-800 text-white px-6 py-4 flex items-center justify-between print-section-header">
                         <h3 class="text-lg font-bold tracking-tight flex items-center gap-2">
                             <span>🎒</span> 2. The Ten Essentials
                         </h3>
-                        <span class="text-xs bg-amber-500 text-scout-900 font-bold px-2 py-0.5 rounded-full uppercase">Always in Daypack</span>
+                        <span class="text-xs bg-amber-500 text-scout-900 font-bold px-2 py-0.5 rounded-full uppercase no-print">Always in Daypack</span>
                     </div>
                     <div class="p-6 divide-y divide-stone-100">
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-1')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-1')">
                             <input type="checkbox" id="item-2-1" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -318,7 +298,7 @@
                                 <p class="text-xs text-stone-500 mt-0.5">Bandaids, moleskin, and antiseptic wipes. (Check expiry dates!)</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-2')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-2')">
                             <input type="checkbox" id="item-2-2" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -326,7 +306,7 @@
                                 <p class="text-xs text-stone-500 mt-0.5">Lightweight fleece or sweater (NO COTTON) and packable down jacket.</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-3')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-3')">
                             <input type="checkbox" id="item-2-3" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -334,7 +314,7 @@
                                 <p class="text-xs text-stone-500 mt-0.5">Must carry Tot'n Chip card and follow all safety rules.</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-4')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-4')">
                             <input type="checkbox" id="item-2-4" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -342,7 +322,7 @@
                                 <p class="text-xs text-stone-500 mt-0.5">Fluid-filled baseplate compass for orienteering.</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-5')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-5')">
                             <input type="checkbox" id="item-2-5" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -350,7 +330,7 @@
                                 <p class="text-xs text-stone-500 mt-0.5">Sunscreen (SPF 30+), sunglasses, lip balm with SPF, and wide-brimmed sun hat.</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-6')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-6')">
                             <input type="checkbox" id="item-2-6" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -358,7 +338,7 @@
                                 <p class="text-xs text-stone-500 mt-0.5">Waterproof match case or magnesium firesteel. (Must carry Firem'n Chit card).</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-7')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-7')">
                             <input type="checkbox" id="item-2-7" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -366,7 +346,7 @@
                                 <p class="text-xs text-stone-500 mt-0.5">Sturdy, breathable water-resistant jacket & pants (NO cheap ponchos!).</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-8')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-8')">
                             <input type="checkbox" id="item-2-8" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -374,15 +354,15 @@
                                 <p class="text-xs text-stone-500 mt-0.5">Two (2) wide-mouth Nalgene 1L+ bottles (2L min). No single-use plastic/heavy metal.</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-9')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-9')">
                             <input type="checkbox" id="item-2-9" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
                                 <span class="item-title font-bold text-stone-800 text-sm">Emergency Food</span>
-                                <p class="text-xs text-stone-500 mt-0.5">High-energy snacks (trail mix, beef jerky, energy bars) to share with "mini-bears."</p>
+                                <p class="text-xs text-stone-500 mt-0.5">High-energy snacks (trail mix, beef jerky, energy bars).</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-10')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-2-10')">
                             <input type="checkbox" id="item-2-10" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -394,16 +374,16 @@
                 </div>
             </section>
 
-            <!-- SECTION 3: Main Gear & Sleep System -->
-            <section class="bg-white rounded-2xl shadow-md border border-stone-200 overflow-hidden flex flex-col justify-between print-page-break print-avoid-break" data-section="sleepsystem">                <div>
-                    <div class="bg-scout-800 text-white px-6 py-4 flex items-center justify-between">
+            <section class="bg-white rounded-2xl shadow-md border border-stone-200 overflow-hidden flex flex-col justify-between print-page-break print-avoid-break" data-section="sleepsystem">
+                <div>
+                    <div class="bg-scout-800 text-white px-6 py-4 flex items-center justify-between print-section-header">
                         <h3 class="text-lg font-bold tracking-tight flex items-center gap-2">
                             <span>⛺</span> 3. Main Gear & Sleep System
                         </h3>
-                        <span class="text-xs bg-scout-700 text-scout-100 font-medium px-2 py-0.5 rounded-full">Primary Gear</span>
+                        <span class="text-xs bg-scout-700 text-scout-100 font-medium px-2 py-0.5 rounded-full no-print">Primary Gear</span>
                     </div>
                     <div class="p-6 divide-y divide-stone-100">
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-1')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-1')">
                             <input type="checkbox" id="item-3-1" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -411,7 +391,7 @@
                                 <p class="text-xs text-stone-500 mt-0.5">65–70 Liters capacity (REI professional torso fitting is highly recommended).</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-2')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-2')">
                             <input type="checkbox" id="item-3-2" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -419,7 +399,7 @@
                                 <p class="text-xs text-stone-500 mt-0.5">Sized properly to completely cover your pack with your sleep pad strapped outside.</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-3')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-3')">
                             <input type="checkbox" id="item-3-3" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
@@ -427,481 +407,238 @@
                                 <p class="text-xs text-stone-500 mt-0.5">Rated to 20°F or lower, lightweight and compressible (synthetic preferred).</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-4')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-4')">
                             <input type="checkbox" id="item-3-4" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Pillow <span class="text-emerald-600 font-normal">(Highly Recommended)</span></span>
-                                <p class="text-xs text-stone-500 mt-0.5">Compact inflatable camping pillows work great.</p>
+                                <span class="item-title font-bold text-stone-800 text-sm">Sleeping Pad</span>
+                                <p class="text-xs text-stone-500 mt-0.5">Closed-cell foam or insulated inflatable pad. Critical to block sub-surface ground chill.</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-5')">
+                        <div class="checklist-item print-item-border py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-5')">
                             <input type="checkbox" id="item-3-5" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Sleeping Pad</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Z-folding foam pad (e.g., Therm-a-Rest Z-Lite) or self-inflating pad (bring patch kit).</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-6')">
-                            <input type="checkbox" id="item-3-6" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Headlamp or Flashlight</span>
-                                <p class="text-xs text-stone-500 mt-0.5">High quality with fresh batteries installed, plus one set of spares.</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-7')">
-                            <input type="checkbox" id="item-3-7" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Mess Kit (NO paper/metal)</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Lightweight plastic BPA-free plate, bowl, insulated cup with lid, and cutlery set.</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-8')">
-                            <input type="checkbox" id="item-3-8" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Camp Chair</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Ultra-lightweight, compact, and foldable (no bulky classic lawn/bag chairs).</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-9')">
-                            <input type="checkbox" id="item-3-9" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Carabiners (2–4 sturdy)</span>
-                                <p class="text-xs text-stone-500 mt-0.5">3–4 inch utility clips to attach gear (like water bottles) securely to pack.</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-3-10')">
-                            <input type="checkbox" id="item-3-10" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Whistle / Signal Mirror</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Safety whistle attached to your pack shoulder strap with a lanyard.</p>
+                                <span class="item-title font-bold text-stone-800 text-sm">Pillow</span>
+                                <p class="text-xs text-stone-500 mt-0.5">Lightweight, inflatable camp pillow (or pack clothes inside a clean stuff sack).</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- SECTION 4: Clothing to Pack -->
-            <section class="bg-white rounded-2xl shadow-md border border-stone-200 overflow-hidden flex flex-col justify-between page-break" data-section="clothing">
+            <section class="bg-white rounded-2xl shadow-md border border-stone-200 overflow-hidden flex flex-col justify-between print-avoid-break" data-section="clothing">
                 <div>
-                    <div class="bg-scout-800 text-white px-6 py-4 flex items-center justify-between">
+                    <div class="bg-scout-800 text-white px-6 py-4 flex items-center justify-between print-section-header">
                         <h3 class="text-lg font-bold tracking-tight flex items-center gap-2">
-                            <span>👕</span> 4. Clothing to Pack
+                            <span>👕</span> 4. Clothing & Layers
                         </h3>
-                        <span class="text-xs bg-red-600 text-white font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">No Cotton!</span>
+                        <span class="text-xs bg-scout-700 text-scout-100 font-medium px-2 py-0.5 rounded-full no-print">No Cotton</span>
                     </div>
                     <div class="p-6 divide-y divide-stone-100">
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-1')">
+                        <div class="checklist-item print-item-border py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-1')">
                             <input type="checkbox" id="item-4-1" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">3–4 Class "B" Activity Shirts</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Mango Troop t-shirts are the preferred daily uniform of the day in camp.</p>
+                                <span class="item-title font-bold text-stone-800 text-sm">Synthetic Hiking Shirts</span>
+                                <p class="text-xs text-stone-500 mt-0.5">2-3 shirts. Breathable polyester or nylon blend fabrics only.</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-2')">
+                        <div class="checklist-item print-item-border py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-2')">
                             <input type="checkbox" id="item-4-2" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">3 Pairs of Socks</span>
-                                <p class="text-xs text-stone-500 mt-0.5">High-quality merino wool or synthetic active blends (STRICTLY NO COTTON!).</p>
+                                <span class="item-title font-bold text-stone-800 text-sm">Convertible Hiking Pants</span>
+                                <p class="text-xs text-stone-500 mt-0.5">1-2 pairs of zip-off or standard nylon active trail pants.</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-3')">
+                        <div class="checklist-item print-item-border py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-3')">
                             <input type="checkbox" id="item-4-3" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">3 Pairs of Underwear</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Synthetic/athletic moisture-wicking material (no cotton to avoid chafing).</p>
+                                <span class="item-title font-bold text-stone-800 text-sm">Merino Wool / Synthetic Socks</span>
+                                <p class="text-xs text-stone-500 mt-0.5">3-4 pairs. Heavy cushions help prevent physical heel blisters.</p>
                             </div>
                         </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-4')">
+                        <div class="checklist-item print-item-border py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-4')">
                             <input type="checkbox" id="item-4-4" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
                             <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
                             <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">1 Pair of Pants</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Heavy-duty long pants (Official Scout uniform pants or quick-dry trail pants).</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-5')">
-                            <input type="checkbox" id="item-4-5" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">1–2 Pairs of Shorts</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Active Scout uniform shorts or rugged synthetic utility hiking shorts.</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-6')">
-                            <input type="checkbox" id="item-4-6" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Swimsuit</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Boardshorts or quick-drying swim shorts (crucial for waterfront/swim test).</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-7')">
-                            <input type="checkbox" id="item-4-7" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Jacket</span>
-                                <p class="text-xs text-stone-500 mt-0.5">High-loft warm fleece jacket and/or a compressible puffy jacket.</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-8')">
-                            <input type="checkbox" id="item-4-8" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Camp / Water Shoes</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Closed-toe water shoes or Crocs (ONLY used in showers or down at waterfront).</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-9')">
-                            <input type="checkbox" id="item-4-9" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Cold Weather Gear</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Beanie (knit cap) and lightweight gloves for chilly mornings and nights.</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2.5 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-4-10')">
-                            <input type="checkbox" id="item-4-10" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Pajamas / Base Layer</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Clean polyester/merino wool set reserved solely for sleeping (e.g., Costco 32° Heat).</p>
+                                <span class="item-title font-bold text-stone-800 text-sm">Waterfront / Shower Shoes</span>
+                                <p class="text-xs text-stone-500 mt-0.5">Crocs or water sandals strictly used at the waterfront or shower stalls.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- SECTION 5: Toiletries & Extras -->
-            <section class="bg-white rounded-2xl shadow-md border border-stone-200 overflow-hidden flex flex-col justify-between" data-section="toiletries">
+            <section class="bg-white rounded-2xl shadow-md border border-stone-200 overflow-hidden flex flex-col justify-between print-avoid-break print-full" data-section="personal">
                 <div>
-                    <div class="bg-scout-800 text-white px-6 py-4 flex items-center justify-between">
+                    <div class="bg-scout-800 text-white px-6 py-4 flex items-center justify-between print-section-header">
                         <h3 class="text-lg font-bold tracking-tight flex items-center gap-2">
-                            <span>🧼</span> 5. Personal Toiletries & Camp Extras
+                            <span>🔦</span> 5. Personal Items & Electronics
                         </h3>
-                        <span class="text-xs bg-scout-700 text-scout-100 font-medium px-2 py-0.5 rounded-full">Personal Care</span>
+                        <span class="text-xs bg-scout-700 text-scout-100 font-medium px-2 py-0.5 rounded-full no-print">Camp Kit</span>
                     </div>
-                    <div class="p-6 divide-y divide-stone-100">
-                        <div class="checklist-item py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-1')">
-                            <input type="checkbox" id="item-5-1" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Towel</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Quick-dry microfiber travel towel (avoid thick, bulky bath towels).</p>
+                    <div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-x-6 divide-y sm:divide-y-0 divide-stone-100">
+                        <div>
+                            <div class="checklist-item print-item-border py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-1')">
+                                <input type="checkbox" id="item-5-1" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
+                                <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
+                                <div class="flex-1">
+                                    <span class="item-title font-bold text-stone-800 text-sm">Headlamp / Flashlight</span>
+                                    <p class="text-xs text-stone-500 mt-0.5">Bring extra sets of lithium/alkaline replacement batteries.</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item print-item-border py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-2')">
+                                <input type="checkbox" id="item-5-2" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
+                                <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
+                                <div class="flex-1">
+                                    <span class="item-title font-bold text-stone-800 text-sm">Mess Kit (Plate, Bowl, Spoon)</span>
+                                    <p class="text-xs text-stone-500 mt-0.5">Lightweight mesh bag with robust reusable clip hook attached.</p>
+                                </div>
+                            </div>
+                            <div class="checklist-item print-item-border py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-3')">
+                                <input type="checkbox" id="item-5-3" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
+                                <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
+                                <div class="flex-1">
+                                    <span class="item-title font-bold text-stone-800 text-sm">Scout Handbook & Docs</span>
+                                    <p class="text-xs text-stone-500 mt-0.5">Keep completely safe inside a gallon-sized heavy zip-lock bag.</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="checklist-item py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-2')">
-                            <input type="checkbox" id="item-5-2" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Soap</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Bar soap in a secure plastic travel case or biodegradable liquid body wash.</p>
+                        <div class="sm:border-l sm:border-stone-100 sm:pl-6">
+                            <div class="checklist-item print-item-border py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-4')">
+                                <input type="checkbox" id="item-5-4" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
+                                <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
+                                <div class="flex-1">
+                                    <span class="item-title font-bold text-stone-800 text-sm">Toiletries Kit</span>
+                                    <p class="text-xs text-stone-500 mt-0.5">Toothbrush, toothpaste, unscented stick deodorant, biodegradeable soap.</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="checklist-item py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-3')">
-                            <input type="checkbox" id="item-5-3" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Dental Care</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Toothbrush and travel-sized toothpaste tube.</p>
+                            <div class="checklist-item print-item-border py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-5')">
+                                <input type="checkbox" id="item-5-5" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
+                                <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
+                                <div class="flex-1">
+                                    <span class="item-title font-bold text-stone-800 text-sm">Trading Post Money</span>
+                                    <p class="text-xs text-stone-500 mt-0.5">$50-$70 cash secured inside a labeled pouch for snacks or badges.</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="checklist-item py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-4')">
-                            <input type="checkbox" id="item-5-4" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Deodorant</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Stick style (unscented preferred so you don't attract bugs or bears!).</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-5')">
-                            <input type="checkbox" id="item-5-5" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Insect Repellent</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Non-aerosol spray/lotion only (aerosols damage synthetic tent fly fabrics).</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-6')">
-                            <input type="checkbox" id="item-5-6" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Scout Handbook & Booklet Docs</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Kept safe inside a gallon zip-lock bag, alongside your active Merit Badge books.</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-7')">
-                            <input type="checkbox" id="item-5-7" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Writing Supplies</span>
-                                <p class="text-xs text-stone-500 mt-0.5">Small pocket notebook and pen/pencil (required for several camp badges).</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-8')">
-                            <input type="checkbox" id="item-5-8" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Trading Post Money</span>
-                                <p class="text-xs text-stone-500 mt-0.5">$50–$70 cash in a labeled envelope/wallet for souvenirs, craft kits, and snacks.</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-9')">
-                            <input type="checkbox" id="item-5-9" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Camera <span class="text-stone-400 font-normal">(Optional)</span></span>
-                                <p class="text-xs text-stone-500 mt-0.5">Small standalone film/digital camera (remember, phones are banned!).</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-10')">
-                            <input type="checkbox" id="item-5-10" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Travel Games <span class="text-stone-400 font-normal">(Optional)</span></span>
-                                <p class="text-xs text-stone-500 mt-0.5">Deck of playing cards or quick travel board games to enjoy during rest hours.</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-11')">
-                            <input type="checkbox" id="item-5-11" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
-                            <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
-                            <div class="flex-1">
-                                <span class="item-title font-bold text-stone-800 text-sm">Personal Camp Lantern <span class="text-stone-400 font-normal">(Optional)</span></span>
-                                <p class="text-xs text-stone-500 mt-0.5">Handy to hang inside your tent to read or organize gear at night.</p>
+                            <div class="checklist-item print-item-border py-2 flex items-start gap-3 cursor-pointer select-none" onclick="toggleItem('item-5-6')">
+                                <input type="checkbox" id="item-5-6" class="no-print mt-1 h-5 w-5 rounded border-stone-300 text-scout-600 focus:ring-scout-500" onclick="event.stopPropagation(); updateProgress()">
+                                <span class="hidden print:inline-block checkbox-print mr-2 mt-1 shrink-0"></span>
+                                <div class="flex-1">
+                                    <span class="item-title font-bold text-stone-800 text-sm">Insect Repellent</span>
+                                    <p class="text-xs text-stone-500 mt-0.5">Non-aerosol lotions/pump sprays only (Aerosols melt synthetic fly covers).</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-
-            <!-- SECTION 6: Troop Provided Gear -->
-            <section class="bg-stone-50 rounded-2xl border-2 border-dashed border-stone-300 p-6 flex flex-col justify-between print-full md:col-span-2" data-section="troopgear">
-                <div>
-                    <h3 class="text-lg font-extrabold text-stone-700 flex items-center gap-2 mb-4">
-                        <span>🤝</span> 6. Troop & Patrol Gear (Provided by Troop)
-                    </h3>
-                    <p class="text-xs text-stone-500 mb-6 italic">Note: Individual scouts do not need to purchase these items. However, scouts will cooperate to pack, transport, pitch, and clean these in camp.</p>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                        <div class="bg-white p-3 rounded-xl border border-stone-200 text-center shadow-sm">
-                            <span class="text-xl block mb-1">⛺</span>
-                            <span class="text-xs font-bold text-stone-800 block">Patrol Tents</span>
-                            <span class="text-[10px] text-stone-500">For all Scouts</span>
-                        </div>
-                        <div class="bg-white p-3 rounded-xl border border-stone-200 text-center shadow-sm">
-                            <span class="text-xl block mb-1">🍳</span>
-                            <span class="text-xs font-bold text-stone-800 block">Patrol Boxes</span>
-                            <span class="text-[10px] text-stone-500">Cooking Gear</span>
-                        </div>
-                        <div class="bg-white p-3 rounded-xl border border-stone-200 text-center shadow-sm">
-                            <span class="text-xl block mb-1">⛺</span>
-                            <span class="text-xs font-bold text-stone-800 block">Dining Flys</span>
-                            <span class="text-[10px] text-stone-500">Canopies & Tarps</span>
-                        </div>
-                        <div class="bg-white p-3 rounded-xl border border-stone-200 text-center shadow-sm">
-                            <span class="text-xl block mb-1">🧼</span>
-                            <span class="text-xs font-bold text-stone-800 block">Wash Stations</span>
-                            <span class="text-[10px] text-stone-500">Sanitation gear</span>
-                        </div>
-                        <div class="bg-white p-3 rounded-xl border border-stone-200 text-center shadow-sm">
-                            <span class="text-xl block mb-1">🚩</span>
-                            <span class="text-xs font-bold text-stone-800 block">Troop Flags</span>
-                            <span class="text-[10px] text-stone-500">And Patrol Flags</span>
-                        </div>
-                        <div class="bg-white p-3 rounded-xl border border-stone-200 text-center shadow-sm">
-                            <span class="text-xl block mb-1">🪵</span>
-                            <span class="text-xs font-bold text-stone-800 block">Lashing Ropes</span>
-                            <span class="text-[10px] text-stone-500">Poles & Spars</span>
-                        </div>
-                        <div class="bg-white p-3 rounded-xl border border-stone-200 text-center shadow-sm">
-                            <span class="text-xl block mb-1">🗑️</span>
-                            <span class="text-xs font-bold text-stone-800 block">Trash Bags</span>
-                            <span class="text-[10px] text-stone-500">Disposal Items</span>
-                        </div>
-                        <div class="bg-white p-3 rounded-xl border border-stone-200 text-center shadow-sm">
-                            <span class="text-xl block mb-1">🏮</span>
-                            <span class="text-xs font-bold text-stone-800 block">Camp Lanterns</span>
-                            <span class="text-[10px] text-stone-500">For shared areas</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-stone-800 text-stone-400 py-8 px-4 mt-12 border-t border-stone-700 text-center no-print">
-        <p class="text-sm">Troop 621 • Scout Summer Camp Master Gear Checklist</p>
-        <p class="text-xs mt-2 text-stone-500">"Be Prepared. Do a Good Turn Daily."</p>
-    </footer>
-
-    <!-- JavaScript logic -->
     <script>
-        let activeFilter = 'all';
+        let currentFilter = 'all';
 
-        // Load packed item state from localStorage on init
-        window.addEventListener('load', () => {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(cb => {
-                const storedState = localStorage.getItem(cb.id);
-                if (storedState === 'true') {
-                    cb.checked = true;
-                    cb.closest('.checklist-item').classList.add('packed');
-                }
-            });
-            updateProgress();
-        });
-
-        // Toggle action on clicking any checklist card
         function toggleItem(id) {
-            const cb = document.getElementById(id);
-            cb.checked = !cb.checked;
-            
-            const card = cb.closest('.checklist-item');
-            if (cb.checked) {
-                card.classList.add('packed');
-            } else {
-                card.classList.remove('packed');
-            }
-            
-            localStorage.setItem(id, cb.checked);
-            updateProgress();
-            
-            // Re-apply current unpacked/packed filters
-            if (activeFilter !== 'all') {
-                filterItems();
+            const checkbox = document.getElementById(id);
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+                updateProgress();
             }
         }
 
-        // Live calculations for progress bar updates
         function updateProgress() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const total = checkboxes.length;
-            let checkedCount = 0;
+            const checkboxes = document.querySelectorAll('#packing-sections input[type="checkbox"]');
+            const checked = document.querySelectorAll('#packing-sections input[type="checkbox"]:checked');
             
-            checkboxes.forEach(cb => {
-                const card = cb.closest('.checklist-item');
-                if (cb.checked) {
-                    checkedCount++;
-                    card.classList.add('packed');
-                } else {
-                    card.classList.remove('packed');
+            checkboxes.forEach(box => {
+                const row = box.closest('.checklist-item');
+                if (row) {
+                    if (box.checked) {
+                        row.classList.add('packed');
+                    } else {
+                        row.classList.remove('packed');
+                    }
                 }
-                localStorage.setItem(cb.id, cb.checked);
             });
 
-            const percent = total > 0 ? Math.round((checkedCount / total) * 100) : 0;
+            const total = checkboxes.length;
+            const count = checked.length;
+            const percent = total ? Math.round((count / total) * 100) : 0;
             
-            // UI elements adjustments
             document.getElementById('progress-text').innerText = `${percent}% Prepared`;
             document.getElementById('progress-bar').style.width = `${percent}%`;
-            document.getElementById('progress-count').innerText = `${checkedCount} of ${total} items packed`;
+            document.getElementById('progress-count').innerText = `${count} of ${total} items packed`;
 
-            // Motivational messages
-            const msgEl = document.getElementById('motivational-msg');
-            if (percent === 0) {
-                msgEl.innerText = "Ready to start packing!";
-                msgEl.className = "italic text-amber-600 font-medium";
-            } else if (percent < 30) {
-                msgEl.innerText = "Good start! Keep checking things off.";
-                msgEl.className = "italic text-amber-600 font-medium";
-            } else if (percent < 70) {
-                msgEl.innerText = "You're getting there! Double-check critical rules.";
-                msgEl.className = "italic text-scout-600 font-medium";
-            } else if (percent < 100) {
-                msgEl.innerText = "Almost ready! Don't forget your paperwork.";
-                msgEl.className = "italic text-scout-700 font-bold";
-            } else {
-                msgEl.innerText = "Fully Packed & Ready for Adventure! 🏕️";
-                msgEl.className = "italic text-emerald-600 font-extrabold animate-bounce";
+            const msg = document.getElementById('motivational-msg');
+            if (percent === 0) msg.innerText = "Ready to start packing!";
+            else if (percent < 40) msg.innerText = "Good start! Keep checking things off.";
+            else if (percent < 80) msg.innerText = "Looking sharp! You're almost ready.";
+            else if (percent < 100) msg.innerText = "A scout is thorough! Just a few left.";
+            else msg.innerText = "Fully Prepared! Have an awesome campout!";
+
+            // Maintain current unpacked/packed filters if running
+            if (currentFilter !== 'all') {
+                setFilter(currentFilter);
             }
         }
 
-        // Search engine logic
         function filterItems() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const items = document.querySelectorAll('.checklist-item');
             
             items.forEach(item => {
-                const titleText = item.querySelector('.item-title').textContent.toLowerCase();
-                const descText = item.querySelector('p').textContent.toLowerCase();
-                const matchSearch = titleText.includes(query) || descText.includes(query);
+                const title = item.querySelector('.item-title').innerText.toLowerCase();
+                const text = item.querySelector('p') ? item.querySelector('p').innerText.toLowerCase() : '';
+                const matchQuery = title.includes(query) || text.includes(query);
                 
-                const cb = item.querySelector('input[type="checkbox"]');
+                // Evaluate based on search query match and current filter mode
                 let matchFilter = true;
-                
-                if (activeFilter === 'packed') {
-                    matchFilter = cb.checked;
-                } else if (activeFilter === 'unpacked') {
-                    matchFilter = !cb.checked;
-                }
+                const checked = item.querySelector('input[type="checkbox"]').checked;
+                if (currentFilter === 'packed' && !checked) matchFilter = false;
+                if (currentFilter === 'unpacked' && checked) matchFilter = false;
 
-                if (matchSearch && matchFilter) {
+                if (matchQuery && matchFilter) {
                     item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
             });
-
-            // Auto toggle section visibility if empty during search
-            const sections = document.querySelectorAll('section[data-section]');
-            sections.forEach(sec => {
-                if (sec.getAttribute('data-section') === 'troopgear') return; // Skip troop provided gear
-                const visibleInSec = sec.querySelectorAll('.checklist-item[style="display: flex;"]').length;
-                const totalInSec = sec.querySelectorAll('.checklist-item').length;
-                
-                if (visibleInSec === 0 && totalInSec > 0) {
-                    sec.style.display = 'none';
-                } else {
-                    sec.style.display = 'flex';
-                }
-            });
         }
 
-        // Filter tab controllers ("All", "To Pack", "Packed")
-        function setFilter(filterType) {
-            activeFilter = filterType;
+        function setFilter(type) {
+            currentFilter = type;
             
-            // Manage visual state on button toggles
-            const buttons = {
-                all: document.getElementById('btn-filter-all'),
-                unpacked: document.getElementById('btn-filter-unpacked'),
-                packed: document.getElementById('btn-filter-packed')
-            };
-
-            Object.keys(buttons).forEach(key => {
-                if (key === filterType) {
-                    buttons[key].classList.add('bg-white', 'text-stone-800', 'shadow-sm');
-                    buttons[key].classList.remove('text-stone-600', 'hover:text-stone-800');
+            // Toggle visual tab highlight states
+            ['all', 'unpacked', 'packed'].forEach(t => {
+                const btn = document.getElementById(`btn-filter-${t}`);
+                if (t === type) {
+                    btn.className = "px-3 py-1.5 text-xs font-semibold rounded-lg bg-white text-stone-800 shadow-sm transition";
                 } else {
-                    buttons[key].classList.remove('bg-white', 'text-stone-800', 'shadow-sm');
-                    buttons[key].classList.add('text-stone-600', 'hover:text-stone-800');
+                    btn.className = "px-3 py-1.5 text-xs font-semibold rounded-lg text-stone-600 hover:text-stone-800 transition";
                 }
             });
 
             filterItems();
         }
 
-        // Reset all checks
         function resetChecklist() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(cb => {
-                cb.checked = false;
-                cb.closest('.checklist-item').classList.remove('packed');
-                localStorage.removeItem(cb.id);
-            });
-            updateProgress();
-            filterItems();
+            if (confirm("Are you sure you want to clear your local packing progress?")) {
+                const checkboxes = document.querySelectorAll('#packing-sections input[type="checkbox"]');
+                checkboxes.forEach(box => box.checked = false);
+                updateProgress();
+                document.getElementById('searchInput').value = '';
+                setFilter('all');
+            }
         }
+
+        // Initialize counters perfectly on startup
+        window.onload = function() {
+            updateProgress();
+        };
     </script>
 </body>
 </html>
