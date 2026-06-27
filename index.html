@@ -562,7 +562,7 @@
         </div>
     </main>
 
-    <script>
+<script>
         let currentFilter = 'all';
 
         function toggleItem(id) {
@@ -609,7 +609,7 @@
             }
         }
 
-        /* ⚜️ NEW: SPL DASHBOARD JAVASCRIPT LOGIC */
+        /* ⚜️ SPL DASHBOARD JAVASCRIPT LOGIC */
         function updateSplButtonText() {
             const nameInput = document.getElementById('splScoutName').value.trim();
             const btnText = document.getElementById('splBtnText');
@@ -676,7 +676,7 @@
                 if (currentFilter === 'unpacked' && checked) matchFilter = false;
 
                 if (matchQuery && matchFilter) {
-                    item.style.style.display = 'flex';
+                    item.style.display = 'flex'; // Fixed typo here!
                 } else {
                     item.style.display = 'none';
                 }
@@ -716,5 +716,5 @@
             updateProgress();
         };
     </script>
-</body>
-</html>
+    </body>
+    </html>
