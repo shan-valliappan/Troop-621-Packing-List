@@ -31,19 +31,23 @@
         }
     </script>
     <style>
-        /* Custom styles to enhance interaction and printing */
         .checklist-item {
             transition: all 0.2s ease-in-out;
         }
         .checklist-item.packed {
-            background-color: #f8fafc; /* Neutral soft gray background */
-            border-color: #cbd5e1;     /* Slate border */
+            background-color: #f8fafc;
+            border-color: #cbd5e1;
         }
         .checklist-item.packed .item-title {
             text-decoration: line-through;
-            color: #64748b;             /* Muted gray text for completed items */
+            color: #64748b;
         }
         
+        /* Receipt Print Styles Overrides */
+        #receiptPrintSection {
+            display: none;
+        }
+
         @media print {
             @page {
                 margin: 0.8cm 1cm 0.8cm 1cm;
@@ -57,15 +61,33 @@
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
-            .no-print {
+
+            /* Standard layout hiding */
+            .no-print, #packing-sections, header, section, .sticky {
                 display: none !important;
             }
-            /* Structure sections to fit perfectly on exactly 2 pages */
-            .print-grid {
+
+            /* Custom Dynamic Receipt Display conditional handling */
+            body.printing-receipt #receiptPrintSection {
+                display: block !important;
+            }
+            body.printing-receipt .hidden-on-receipt {
+                display: none !important;
+            }
+
+            /* Standard Checklist Formats (if printing the whole master list instead) */
+            body:not(.printing-receipt) #packing-sections {
                 display: grid !important;
                 grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
                 gap: 0.75rem !important;
             }
+            body:not(.printing-receipt) section {
+                display: flex !important;
+            }
+            body:not(.printing-receipt) header {
+                display: block !important;
+            }
+
             .print-full {
                 grid-column: span 2 / span 2 !important;
             }
@@ -77,7 +99,6 @@
                 break-inside: avoid !important;
                 page-break-inside: avoid !important;
             }
-            /* Styled checkbox squares for physical pencils */
             .checkbox-print {
                 border: 1.5px solid #1e3a8a !important;
                 border-radius: 3px !important;
@@ -87,39 +108,52 @@
                 vertical-align: middle !important;
                 margin-top: 1px !important;
                 background-color: transparent !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
             }
-            /* High Contrast Print Headers */
             .print-section-header {
                 background-color: #1e3a8a !important;
                 color: white !important;
                 padding: 4px 10px !important;
                 border-radius: 4px !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
                 font-weight: bold !important;
                 font-size: 12px !important;
                 display: flex !important;
                 justify-content: space-between !important;
             }
-            /* Clean borders for print items */
             .print-item-border {
                 border-bottom: 1px solid #e5e7eb !important;
                 padding-top: 4px !important;
                 padding-bottom: 4px !important;
-            }
-            .print-item-border:last-child {
-                border-bottom: none !important;
             }
         }    
     </style>
 </head>
 <body class="bg-stone-100 text-stone-800 min-h-screen font-sans antialiased">
 
-    <div class="hidden print:block mb-4 border-b-2 border-scout-800 pb-3 text-center">
+    <div class="hidden print:block mb-4 border-b-2 border-scout-800 pb-3 text-center hidden-on-receipt">
         <h1 class="text-3xl font-bold text-scout-900 tracking-tight">Troop 621 Packing List</h1>
         <p class="text-md font-semibold text-gold-700 italic">"Be Prepared." — Outdoor Camping & Summer Camp Gear Guide</p>
+    </div>
+
+    <div id="receiptPrintSection" class="w-full max-w-xl mx-auto p-4 border-2 border-dashed border-stone-400 rounded-lg bg-white">
+        <div class="text-center border-b pb-4 mb-4">
+            <div class="text-2xl font-black text-scout-900">⚜️ TROOP 621 CAMP GEAR RECEIPT ⚜️</div>
+            <p class="text-xs uppercase tracking-wider text-stone-500 font-bold mt-0.5">Pre-Camp Pack Check Deficiency Log</p>
+            <div class="mt-2 text-sm font-bold bg-stone-100 inline-block px-4 py-1 rounded-md text-stone-800">
+                Scout Assignment: <span id="receiptScoutName" class="text-scout-800 underline">---</span>
+            </div>
+        </div>
+        
+        <p class="text-xs text-stone-700 mb-4 font-medium leading-relaxed">
+            The following required safety or organizational items were found <strong>missing</strong> from this Scout's backpack during the inspection. Please procure or locate these critical gear assets before the troop departure timeline.
+        </p>
+
+        <div id="receiptMissingItemsList" class="space-y-2 mb-6">
+            </div>
+
+        <div class="border-t pt-4 text-center">
+            <p class="text-[13px] font-black italic text-scout-900">"Be Prepared."</p>
+            <p class="text-[10px] text-stone-400 mt-0.5">Troop 621 Quartermaster & Leadership Advisory Panel</p>
+        </div>
     </div>
 
     <header class="no-print bg-scout-800 text-white shadow-lg relative overflow-hidden">
@@ -137,7 +171,7 @@
                 <div class="flex gap-3">
                     <button onclick="window.print()" class="bg-white hover:bg-stone-100 text-scout-800 font-bold px-5 py-3 rounded-xl shadow-md flex items-center gap-2 transition duration-200 transform hover:-translate-y-0.5">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                        Print / Save PDF
+                        Print Full List
                     </button>
                     <button onclick="resetChecklist()" class="bg-scout-700 hover:bg-scout-600 text-white border border-scout-600 font-semibold px-4 py-3 rounded-xl transition duration-200">
                         Reset Status
@@ -152,22 +186,18 @@
         <div class="no-print bg-gradient-to-r from-scout-900 to-scout-800 text-white rounded-2xl shadow-xl p-6 mb-8 border border-scout-700 relative overflow-hidden">
             <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl">⚜️</div>
             <div class="relative z-10">
-                <span class="bg-amber-500 text-scout-900 font-black text-[10px] px-2.5 py-1 rounded-md uppercase tracking-wider">Senior Patrol Leader Tool</span>
-                <h2 class="text-xl font-bold mt-1 flex items-center gap-2 text-amber-400">⚜️ Pre-Camp Pack Check Assistant</h2>
-                <p class="text-stone-300 text-xs mt-0.5">Type a Scout's name below, check off what they have in their pack, and click to copy their missing gear checklist instantly.</p>
+                <h2 class="text-xl font-bold flex items-center gap-2 text-amber-400">⚜️ Pre-Camp Pack Check Assistant</h2>
+                <p class="text-stone-300 text-xs mt-0.5">Type a Scout's name below, check off what they have in their pack, and generate a printable discrepancy receipt slip.</p>
                 
                 <div class="mt-4 flex flex-col sm:flex-row gap-3 items-end">
                     <div class="w-full sm:w-72">
                         <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-300 mb-1">Active Scout Name</label>
                         <input type="text" id="splScoutName" oninput="updateSplButtonText()" placeholder="e.g. Johnny Miller" class="w-full bg-scout-950/60 border border-scout-600 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder-scout-400 font-semibold">
                     </div>
-                    <button onclick="copyMissingItems()" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-scout-950 font-bold px-5 py-2.5 rounded-xl transition shadow-md flex items-center justify-center gap-2 group transform hover:-translate-y-0.5">
-                        <svg class="w-4 h-4 text-scout-950 transition group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
-                        <span id="splBtnText">Copy Missing Items List</span>
+                    <button onclick="printMissingReceipt()" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-scout-950 font-bold px-5 py-2.5 rounded-xl transition shadow-md flex items-center justify-center gap-2 group transform hover:-translate-y-0.5">
+                        <svg class="w-4 h-4 text-scout-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                        <span id="splBtnText">Print Missing Receipt</span>
                     </button>
-                </div>
-                <div id="splAlertMsg" class="mt-2 text-xs font-semibold text-emerald-400 hidden flex items-center gap-1">
-                    <span>✅</span> Clipboard updated! Ready to paste into text/email.
                 </div>
             </div>
         </div>
@@ -562,7 +592,7 @@
         </div>
     </main>
 
-<script>
+    <script>
         let currentFilter = 'all';
 
         function toggleItem(id) {
@@ -603,61 +633,62 @@
             else if (percent < 100) msg.innerText = "A scout is thorough! Just a few left.";
             else msg.innerText = "Fully Prepared! Have an awesome campout!";
 
-            // Maintain current unpacked/packed filters if running
             if (currentFilter !== 'all') {
                 setFilter(currentFilter);
             }
         }
 
-        /* ⚜️ SPL DASHBOARD JAVASCRIPT LOGIC */
         function updateSplButtonText() {
             const nameInput = document.getElementById('splScoutName').value.trim();
             const btnText = document.getElementById('splBtnText');
             if (nameInput) {
-                btnText.innerText = `Copy Missing Items for ${nameInput}`;
+                btnText.innerText = `Print Receipt for ${nameInput}`;
             } else {
-                btnText.innerText = `Copy Missing Items List`;
+                btnText.innerText = `Print Missing Receipt`;
             }
         }
 
-        function copyMissingItems() {
+        /* ⚜️ NEW: PRINTABLE RECEIPT LOGIC */
+        function printMissingReceipt() {
             const nameInput = document.getElementById('splScoutName').value.trim();
-            const targetScout = nameInput ? nameInput : "Scout";
+            const targetScout = nameInput ? nameInput : "Anonymous Scout";
             
+            // Set name on receipt
+            document.getElementById('receiptScoutName').innerText = targetScout;
+            
+            // Fetch missing items
             const checkboxes = document.querySelectorAll('#packing-sections input[type="checkbox"]');
-            let missingItems = [];
+            const container = document.getElementById('receiptMissingItemsList');
+            container.innerHTML = ''; // Clear previous fields
+            
+            let missingCount = 0;
 
             checkboxes.forEach(box => {
                 if (!box.checked) {
+                    missingCount++;
                     const row = box.closest('.checklist-item');
-                    if (row) {
-                        const title = row.querySelector('.item-title').innerText;
-                        missingItems.push(title);
-                    }
+                    const title = row.querySelector('.item-title').innerText;
+                    
+                    // Create receipt line item layout
+                    const line = document.createElement('div');
+                    line.className = "flex items-start gap-2 py-1 border-b border-stone-100 text-xs text-stone-800";
+                    line.innerHTML = `<span class="text-red-500 font-bold shrink-0">❌ [ ]</span> <span class="font-semibold">${title}</span>`;
+                    container.appendChild(line);
                 }
             });
 
-            let textMessage = `🏕️ *Troop 621 Pack Check Report for ${targetScout}:*\n`;
-            if (missingItems.length === 0) {
-                textMessage += `Awesome job! You are 100% packed and ready for camp. Perfect pass!\n`;
-            } else {
-                textMessage += `You are currently missing ${missingItems.length} required item(s) for camp. Please procure or find these before departure:\n\n`;
-                missingItems.forEach(item => {
-                    textMessage += `❌ - ${item}\n`;
-                });
+            if (missingCount === 0) {
+                container.innerHTML = `<div class="text-center py-4 text-emerald-600 font-bold text-sm">✅ Pass! 100% Packed. No missing gear tracked.</div>`;
             }
-            textMessage += `\n*"Be Prepared!"*`;
 
-            // Copy generated string securely to device clipboard
-            navigator.clipboard.writeText(textMessage).then(() => {
-                const alertBanner = document.getElementById('splAlertMsg');
-                alertBanner.classList.remove('hidden');
-                setTimeout(() => {
-                    alertBanner.classList.add('hidden');
-                }, 4000);
-            }).catch(err => {
-                alert("Oops, error copying text automatically: " + err);
-            });
+            // Temporarily flag body element to invoke the correct CSS rule structure
+            document.body.classList.add('printing-receipt');
+            
+            // Fire native browser printer UI
+            window.print();
+            
+            // Restore baseline layout once closed or completed
+            document.body.classList.remove('printing-receipt');
         }
 
         function filterItems() {
@@ -669,14 +700,13 @@
                 const text = item.querySelector('p') ? item.querySelector('p').innerText.toLowerCase() : '';
                 const matchQuery = title.includes(query) || text.includes(query);
                 
-                // Evaluate based on search query match and current filter mode
                 let matchFilter = true;
                 const checked = item.querySelector('input[type="checkbox"]').checked;
                 if (currentFilter === 'packed' && !checked) matchFilter = false;
                 if (currentFilter === 'unpacked' && checked) matchFilter = false;
 
                 if (matchQuery && matchFilter) {
-                    item.style.display = 'flex'; // Fixed typo here!
+                    item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
@@ -686,7 +716,6 @@
         function setFilter(type) {
             currentFilter = type;
             
-            // Toggle visual tab highlight states
             ['all', 'unpacked', 'packed'].forEach(t => {
                 const btn = document.getElementById(`btn-filter-${t}`);
                 if (t === type) {
@@ -711,10 +740,9 @@
             }
         }
 
-        // Initialize counters perfectly on startup
         window.onload = function() {
             updateProgress();
         };
     </script>
-    </body>
-    </html>
+</body>
+</html>
