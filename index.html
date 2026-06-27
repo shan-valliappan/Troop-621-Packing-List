@@ -148,6 +148,29 @@
     </header>
 
     <main class="max-w-6xl mx-auto px-4 py-8">
+
+        <div class="no-print bg-gradient-to-r from-scout-900 to-scout-800 text-white rounded-2xl shadow-xl p-6 mb-8 border border-scout-700 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl">⚜️</div>
+            <div class="relative z-10">
+                <span class="bg-amber-500 text-scout-900 font-black text-[10px] px-2.5 py-1 rounded-md uppercase tracking-wider">Senior Patrol Leader Tool</span>
+                <h2 class="text-xl font-bold mt-1 flex items-center gap-2 text-amber-400">⚜️ Pre-Camp Pack Check Assistant</h2>
+                <p class="text-stone-300 text-xs mt-0.5">Type a Scout's name below, check off what they have in their pack, and click to copy their missing gear checklist instantly.</p>
+                
+                <div class="mt-4 flex flex-col sm:flex-row gap-3 items-end">
+                    <div class="w-full sm:w-72">
+                        <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-300 mb-1">Active Scout Name</label>
+                        <input type="text" id="splScoutName" oninput="updateSplButtonText()" placeholder="e.g. Johnny Miller" class="w-full bg-scout-950/60 border border-scout-600 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder-scout-400 font-semibold">
+                    </div>
+                    <button onclick="copyMissingItems()" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-scout-950 font-bold px-5 py-2.5 rounded-xl transition shadow-md flex items-center justify-center gap-2 group transform hover:-translate-y-0.5">
+                        <svg class="w-4 h-4 text-scout-950 transition group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                        <span id="splBtnText">Copy Missing Items List</span>
+                    </button>
+                </div>
+                <div id="splAlertMsg" class="mt-2 text-xs font-semibold text-emerald-400 hidden flex items-center gap-1">
+                    <span>✅</span> Clipboard updated! Ready to paste into text/email.
+                </div>
+            </div>
+        </div>
         
         <div class="no-print bg-white rounded-2xl shadow-md p-6 mb-8 border border-stone-200 sticky top-4 z-40">
             <div class="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4">
@@ -586,6 +609,57 @@
             }
         }
 
+        /* ⚜️ NEW: SPL DASHBOARD JAVASCRIPT LOGIC */
+        function updateSplButtonText() {
+            const nameInput = document.getElementById('splScoutName').value.trim();
+            const btnText = document.getElementById('splBtnText');
+            if (nameInput) {
+                btnText.innerText = `Copy Missing Items for ${nameInput}`;
+            } else {
+                btnText.innerText = `Copy Missing Items List`;
+            }
+        }
+
+        function copyMissingItems() {
+            const nameInput = document.getElementById('splScoutName').value.trim();
+            const targetScout = nameInput ? nameInput : "Scout";
+            
+            const checkboxes = document.querySelectorAll('#packing-sections input[type="checkbox"]');
+            let missingItems = [];
+
+            checkboxes.forEach(box => {
+                if (!box.checked) {
+                    const row = box.closest('.checklist-item');
+                    if (row) {
+                        const title = row.querySelector('.item-title').innerText;
+                        missingItems.push(title);
+                    }
+                }
+            });
+
+            let textMessage = `🏕️ *Troop 621 Pack Check Report for ${targetScout}:*\n`;
+            if (missingItems.length === 0) {
+                textMessage += `Awesome job! You are 100% packed and ready for camp. Perfect pass!\n`;
+            } else {
+                textMessage += `You are currently missing ${missingItems.length} required item(s) for camp. Please procure or find these before departure:\n\n`;
+                missingItems.forEach(item => {
+                    textMessage += `❌ - ${item}\n`;
+                });
+            }
+            textMessage += `\n*"Be Prepared!"*`;
+
+            // Copy generated string securely to device clipboard
+            navigator.clipboard.writeText(textMessage).then(() => {
+                const alertBanner = document.getElementById('splAlertMsg');
+                alertBanner.classList.remove('hidden');
+                setTimeout(() => {
+                    alertBanner.classList.add('hidden');
+                }, 4000);
+            }).catch(err => {
+                alert("Oops, error copying text automatically: " + err);
+            });
+        }
+
         function filterItems() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const items = document.querySelectorAll('.checklist-item');
@@ -602,7 +676,7 @@
                 if (currentFilter === 'unpacked' && checked) matchFilter = false;
 
                 if (matchQuery && matchFilter) {
-                    item.style.display = 'flex';
+                    item.style.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
@@ -631,6 +705,8 @@
                 checkboxes.forEach(box => box.checked = false);
                 updateProgress();
                 document.getElementById('searchInput').value = '';
+                document.getElementById('splScoutName').value = '';
+                updateSplButtonText();
                 setFilter('all');
             }
         }
