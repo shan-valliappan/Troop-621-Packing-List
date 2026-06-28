@@ -43,8 +43,8 @@
             color: #64748b;
         }
         
-        /* Receipt Print Styles Overrides */
-        #receiptPrintSection {
+        /* Default Print Hiding Layout blocks */
+        #receiptPrintSection, #fullListPrintHeader {
             display: none;
         }
 
@@ -62,20 +62,24 @@
                 print-color-adjust: exact !important;
             }
 
-            /* Standard layout hiding */
-            .no-print, #packing-sections, header, section, .sticky {
+            /* Absolute master wipe of web elements during printing */
+            .no-print, header, #web-assistant-panel, #web-progress-gauge, #web-rules-block {
                 display: none !important;
             }
 
-            /* Custom Dynamic Receipt Display conditional handling */
+            /* Scenario A: Printing the Receipt Slip */
             body.printing-receipt #receiptPrintSection {
                 display: block !important;
             }
-            body.printing-receipt .hidden-on-receipt {
+            body.printing-receipt #packing-sections, 
+            body.printing-receipt #fullListPrintHeader {
                 display: none !important;
             }
 
-            /* Standard Checklist Formats (when printing full list) */
+            /* Scenario B: Printing the Master Full Checklist */
+            body:not(.printing-receipt) #fullListPrintHeader {
+                display: block !important;
+            }
             body:not(.printing-receipt) #packing-sections {
                 display: grid !important;
                 grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -83,9 +87,7 @@
             }
             body:not(.printing-receipt) section {
                 display: flex !important;
-            }
-            body:not(.printing-receipt) header {
-                display: block !important;
+                flex-direction: column !important;
             }
 
             .print-full {
@@ -129,7 +131,7 @@
 </head>
 <body class="bg-stone-100 text-stone-800 min-h-screen font-sans antialiased">
 
-    <div class="hidden print:block mb-4 border-b-2 border-scout-800 pb-3 text-center hidden-on-receipt">
+    <div id="fullListPrintHeader" class="mb-4 border-b-2 border-scout-800 pb-3 text-center">
         <h1 class="text-3xl font-bold text-scout-900 tracking-tight">Troop 621 Packing List</h1>
         <p class="text-md font-semibold text-gold-700 italic">"Be Prepared." — Outdoor Camping & Summer Camp Gear Guide</p>
     </div>
@@ -156,7 +158,7 @@
         </div>
     </div>
 
-    <header class="print:hidden bg-scout-800 text-white shadow-lg relative overflow-hidden">
+    <header class="bg-scout-800 text-white shadow-lg relative overflow-hidden">
         <div class="absolute inset-0 bg-[radial-gradient(#15803d_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
         <div class="max-w-6xl mx-auto px-4 py-8 relative z-10">
             <div class="flex flex-col md:flex-row justify-between items-center gap-6">
@@ -183,7 +185,7 @@
 
     <main class="max-w-6xl mx-auto px-4 py-8">
 
-        <div class="print:hidden bg-gradient-to-r from-scout-900 to-scout-800 text-white rounded-2xl shadow-xl p-6 mb-8 border border-scout-700 relative overflow-hidden">
+        <div id="web-assistant-panel" class="bg-gradient-to-r from-scout-900 to-scout-800 text-white rounded-2xl shadow-xl p-6 mb-8 border border-scout-700 relative overflow-hidden">
             <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl">⚜️</div>
             <div class="relative z-10">
                 <h2 class="text-xl font-bold flex items-center gap-2 text-amber-400">⚜️ Pre-Camp Pack Check Assistant</h2>
@@ -202,7 +204,7 @@
             </div>
         </div>
         
-        <div class="print:hidden bg-white rounded-2xl shadow-md p-6 mb-8 border border-stone-200 sticky top-4 z-40">
+        <div id="web-progress-gauge" class="bg-white rounded-2xl shadow-md p-6 mb-8 border border-stone-200 sticky top-4 z-40">
             <div class="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4">
                 <div class="flex-1">
                     <div class="flex justify-between items-baseline mb-2">
@@ -235,7 +237,7 @@
             </div>
         </div>
 
-        <section class="print:hidden bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-2xl p-6 md:p-8 border-2 border-amber-500/30 mb-8 shadow-sm">
+        <section id="web-rules-block" class="bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-2xl p-6 md:p-8 border-2 border-amber-500/30 mb-8 shadow-sm">
             <h2 class="text-xl md:text-2xl font-bold text-amber-900 flex items-center gap-3">
                 <span class="flex h-8 w-8 items-center justify-center rounded-full bg-amber-500 text-white text-lg font-bold">⚠️</span>
                 CRITICAL TRAVEL & CAMP RULES
@@ -287,7 +289,7 @@
             </div>
         </section>
 
-        <div class="print-grid grid grid-cols-1 md:grid-cols-2 gap-8" id="packing-sections">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="packing-sections">
             
             <section class="bg-white rounded-2xl shadow-md border border-stone-200 overflow-hidden flex flex-col justify-between print-avoid-break" data-section="paperwork">
                 <div>
